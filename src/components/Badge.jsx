@@ -22,11 +22,11 @@ class Badge extends React.Component {
                     <img src={confLogo} alt="logoConf"/>
                 </div>
                 <div className="badge_section-name">
-                <Gravatar
-                    className="badge_avatar"
-                    email = {this.props.email}
-                    alt="Avatar"
-                />
+                    <Gravatar
+                        className="badge_avatar"
+                        email = {this.props.email}
+                        alt="Avatar"
+                    />
 
                     <h1>{this.props.firstName}<br/> {this.props.lastName}</h1>
                 </div>

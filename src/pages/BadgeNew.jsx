@@ -4,16 +4,21 @@ import header from '../images/platziconf-logo.svg'
 
 import Badge from '../components/Badge.jsx'
 import BadgeForm from '../components/BadgeForm.jsx'
+import PageLoading from '../components/PageLoading.jsx'
 import api from '../api.js'
 
 class BadgeNew extends React.Component {
-    state ={ form: {
-        firstName: '',
-        lastName: '',
-        email: '',
-        jobTitle: '',
-        twitter: '',
-    }};
+    state ={ 
+        loading: false,
+        error: null,
+        form: {
+            firstName: '',
+            lastName: '',
+            email: '',
+            jobTitle: '',
+            twitter: '',
+        }
+    };
 
     handleChange = e => {
         // const nextForm = this.state.form;
@@ -36,12 +41,18 @@ class BadgeNew extends React.Component {
         try {
             await api.badges.create(this.state.form)
             this.setState({ loading: false })
+
+            // usar props que las paginas dan a react router, le pasa el push para redirigir user a /badges
+            this.props.history.push('/badges')
         } catch (error) {
             this.setState({ loading: false, error: error})
         }
     }
 
     render (){
+        if(this.state.loading){
+            return <PageLoading />;
+        }
         return (
             <React.Fragment>
                 <div className="BadgeNew__hero">
@@ -67,8 +78,9 @@ class BadgeNew extends React.Component {
                         <div className="col-6">
                             <BadgeForm 
                                 onChange={this.handleChange}
-                                onSubmit={this.hadleSubmit}
+                                onSubmit={this.handleSubmit}
                                 formValues={this.state.form}
+                                error = {this.state.error}
                             />
                         </div>
                     </div>
