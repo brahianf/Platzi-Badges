@@ -6,6 +6,7 @@ import confLogo from '../images/badge-header.svg'
 import BadgesList from '../components/BadgesList.jsx'
 import PageLoading from '../components/PageLoading.jsx'
 import PageError from '../components/PageError.jsx'
+import MiniLoader from '../components/MiniLoader.jsx'
 
 import api from '../api.js'
 
@@ -15,7 +16,6 @@ class Badges extends React.Component {
         // inicializar super clase component
         super(props)
 
-        console.log('1.constructor()')
         this.state = {
             loading: true,
             error: null,
@@ -24,8 +24,13 @@ class Badges extends React.Component {
     }
 
     componentDidMount (){
-        console.log('3.componentDidMount')
         this.fetchData()
+
+        this.intervalId = setInterval( this.fetchData, 10000);
+    }
+
+    componentWillUnmount () {
+        clearInterval(this.intervalId);
     }
 
     fetchData = async () => {
@@ -43,7 +48,6 @@ class Badges extends React.Component {
     }
 
     componentDidUpdate(prevProps, prevState) {
-        console.log(' 5. componentDidUpdate()')
         console.log({
             prevProps: prevProps,
             prevState: prevState
@@ -56,14 +60,12 @@ class Badges extends React.Component {
 
     componentWillUnmount() {
         // momento preciso antes que salga componente del DOM
-        console.log(' 6. componentWillUnmount()')
         // Limpiar memoria. liberar la perdida de memoria con muchos componentes y timeouts pendientes
         clearTimeout(this.timeoutId)
     }
 
     render () {
-        console.log('2/4 .render()')
-        if(this.state.loading === true)  {
+        if(this.state.loading === true && !this.state.data) {
             return <PageLoading />;
         }
 
@@ -92,6 +94,8 @@ class Badges extends React.Component {
                     <div className="Badges__list">
                         <div className="Badges__container">
                             <BadgesList badges={this.state.data}/>
+                            {/* Si state loading es true se muestra el msj */}
+                            {this.state.loading && <MiniLoader />}
                         </div>
                     </div>
 
