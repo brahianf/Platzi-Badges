@@ -6,7 +6,7 @@ import Home from '../pages/Home.jsx';
 import BadgeNew from '../pages/BadgeNew.jsx'
 import Badges from '../pages/Badges.jsx'
 import BadgeEdit from '../pages/BadgeEdit.jsx';
-import BadgeDetails from '../pages/BadgeDetails.jsx'
+import BadgeDetailsContainer from '../pages/BadgeDetailsContainer.jsx'
 import NotFound from '../pages/NotFound.jsx'
 
 function App() {
@@ -19,7 +19,7 @@ function App() {
                     <Route exact path="/badges/new" component = {BadgeNew} />
                     {/* Edit trabaja sobre un badge en especifico para eso variable Id */}
                     <Route exact path="/badges/:badgeId/edit" component = {BadgeEdit} />
-                    <Route exact path="/badges/:badgeId" component = {BadgeDetails} />
+                    <Route exact path="/badges/:badgeId" component = {BadgeDetailsContainer} />
                     <Route component = {NotFound} />
                 </Switch>
             </Layout>
