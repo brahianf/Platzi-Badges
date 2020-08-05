@@ -3,7 +3,7 @@ import React from 'react'
 import PageLoading from '../components/PageLoading.jsx'
 import PageError from '../components/PageError.jsx'
 import api from '../api.js'
-import BadgeDetails from './BadgeDetails.jsx'
+import BadgeDetails from './BadgeDetails.js'
 
 class BadgeDetailsContainer extends React.Component {
     state = {
